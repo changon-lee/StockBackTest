@@ -1,5 +1,5 @@
 from data_preprocessing import load_stock_historical_data, read_stock_historical_data, set_back_test_period, preprocessing
-from investment import scale_trading
+from investment import scale_trading, dollar_cost_averaging
 from parameter import stock_info
 
 if __name__ == '__main__':
@@ -12,3 +12,4 @@ if __name__ == '__main__':
 
         #Scale Trading
         scale_trading(df, stock_name)
+        dollar_cost_averaging(df, stock_name)
