@@ -2,16 +2,18 @@ from parameter import *
 import urllib.request
 import os
 import pandas as pd
+import datetime
 from datetime import date
 
 def load_stock_historical_data():
     file_list = list()
-    for stock_name in stock_list:
+    for stock_name in stock_info.keys():
         url = historical_data_url_prefix + stock_name + historical_data_url_suffix
-        if not os.path.exists(stock_directory):
-            os.mkdir(stock_directory)
         path = stock_directory + stock_name + '.csv'
-        urllib.request.urlretrieve(url, path)
+        if not skip_historical_data_download:
+            if not os.path.exists(stock_directory):
+                os.mkdir(stock_directory)
+            urllib.request.urlretrieve(url, path)
         file_list.append(path)
 
     return file_list
@@ -42,3 +44,13 @@ def set_back_test_period(df):
 
     return df[start_idx:end_idx]
 
+def preprocessing(df):
+    df['Date'] = df['Date'].apply(lambda x : datetime.datetime.strptime(x, '%Y-%m-%d'))
+    df['Open'] = df['Open'].astype(float)
+    df['High'] = df['High'].astype(float)
+    df['Low'] = df['Low'].astype(float)
+    df['Close'] = df['Close'].astype(float)
+    df['Adj Close'] = df['Adj Close'].astype(float)
+    df['Volume'] = df['Volume'].astype(int)
+
+    return df
