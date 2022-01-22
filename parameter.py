@@ -5,7 +5,7 @@ stock_info = {'TQQQ':100}
 purchase_day = 40
 sell_profit_percent = +10
 
-investment_dollar = 100000
+investment_dollar = 10000
 
 skip_historical_data_download = True
 historical_data_url_prefix = 'https://query1.finance.yahoo.com/v7/finance/download/'
